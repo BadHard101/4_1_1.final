@@ -6,6 +6,7 @@ cl_base* cl_base::root = new cl_base();
 cl_base::cl_base()
 {
 	parent = nullptr;
+	status = 1;
 }
 
 cl_base::cl_base(string object_name, cl_base* parent)
@@ -45,6 +46,22 @@ string cl_base::get_name()
 	return object_name;
 }
 
+void cl_base::set_status(int status)
+{
+	if (parent->get_status()!=0)
+		this->status = status;
+	if (status == 0) {
+		this->status = 0;
+		for (int i = 0; i < this->children.size(); i++)
+			children[i]->set_status(0);
+	}
+}
+
+int cl_base::get_status()
+{
+	return status;
+}
+
 cl_base* cl_base::get_object_by_name(string name)
 {
 	cl_base* val = nullptr;
@@ -65,6 +82,7 @@ cl_base* cl_base::get_object_by_name(string name)
 
 void cl_base::print_tree()
 {
+	cout << root->children[1]->get_name();
 	for (int i = 1; i < children.size(); i++)
 	{
 		cout << "    ";
@@ -87,7 +105,7 @@ void cl_base::print_tree()
 	}
 }
 
-void cl_base::print_tree1(int k)
+void cl_base::print_tree_format(int k)
 {
 	for (int i = 1; i < children.size(); i++)
 	{
@@ -96,12 +114,33 @@ void cl_base::print_tree1(int k)
 			cout << "    ";
 		cout << children[i]->get_name();
 		if (children[i]->children.size() > 1) {
-			children[i]->print_tree1(k + 1);
+			children[i]->print_tree_format(k + 1);
 		}
 		for (int j = 0; j < k; j++)
 			cout << "    ";
 	}
+}
 
+void cl_base::print_tree_status(int k)
+{
+	for (int i = 1; i < children.size(); i++)
+	{
+		cout << endl;
+		for (int i = 0; i < k; i++)
+			cout << "    ";
+		cout << children[i]->get_name();
+
+		if (children[i]->get_status() != 0)
+			cout << " is ready";
+		else
+			cout << " is not ready";
+
+		if (children[i]->children.size() > 1) {
+			children[i]->print_tree_status(k + 1);
+		}
+		for (int j = 0; j < k; j++)
+			cout << "    ";
+	}
 }
 
 cl_base::~cl_base()

@@ -54,9 +54,32 @@ void cl_application::bild_tree_objects()
 	}
 }
 
+void cl_application::bild_tree_readiness()
+{
+	string name;
+	int status_num;
+	cl_base* ob;
+	while (true)
+	{
+		cin >> name;
+		if (name == "endtree")
+		{
+			return;
+		}
+		cin >> status_num;
+
+		ob = root->get_object_by_name(name);
+		ob->set_status(status_num);
+	}
+}
+
 int cl_application::exec_app()
 {
-	cout << root->children[1]->get_name();
-	root->children[1]->print_tree1(1);
+	cout << "Object tree";
+	root->children[0]->print_tree_format();
+	cout << endl;
+	cout << "The tree of objects and their readiness";
+	root->children[0]->print_tree_status();
+
 	return 0;
 }

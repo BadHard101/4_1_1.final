@@ -13,6 +13,7 @@ class cl_base
 	string object_name = "";
 	cl_base* parent;
 	int index = 0;
+	int status = 0;
 public:
 	static cl_base* root;
 	vector <cl_base*> children;
@@ -22,10 +23,16 @@ public:
 	void set_parent(cl_base* parent);
 	cl_base* get_parent();
 	string get_name();
+
+	void set_status(int);
+	int get_status();
+
 	cl_base* get_object_by_name(string name);
 	void print_tree(); 
-	void print_children(); 
-	void print_tree1(int); 
+
+	void print_tree_format(int k = 0);
+	void print_tree_status(int k = 0);
+
 	~cl_base();
 };
 
