@@ -9,9 +9,11 @@ cl_application::cl_application(cl_base* parent = nullptr)
 
 void cl_application::bild_tree_objects()
 {
+	int num_class;
 	string name1, name2;
 	cin >> name1;
 	cl_base* child1 = new cl_base(name1, nullptr);
+	cl_base* child2;
 	while (true)
 	{
 		cin >> name1;
@@ -19,9 +21,36 @@ void cl_application::bild_tree_objects()
 		{
 			return;
 		}
-		cin >> name2;
-		cl_base* child2 = new cl_base(name2, root -> get_object_by_name(name1));
-		child1 = child2;
+		cin >> name2 >> num_class;
+		switch (num_class)
+		{
+		case 1:
+			child2 = new cl_base(name2, root->get_object_by_name(name1));
+			child1 = child2;
+			break;
+		case 2:
+			child2 = new cl_2(name2, root->get_object_by_name(name1));
+			child1 = child2;
+			break;
+		case 3:
+			child2 = new cl_3(name2, root->get_object_by_name(name1));
+			child1 = child2;
+			break;
+		case 4:
+			child2 = new cl_4(name2, root->get_object_by_name(name1));
+			child1 = child2;
+			break;
+		case 5:
+			child2 = new cl_5(name2, root->get_object_by_name(name1));
+			child1 = child2;
+			break;
+		case 6:
+			child2 = new cl_6(name2, root->get_object_by_name(name1));
+			child1 = child2;
+			break;
+		default:
+			break;
+		}
 	}
 }
 
