@@ -24,7 +24,19 @@ public:
 	string get_name();
 	cl_base* get_object_by_name(string name);
 	void print_tree(); 
+	void print_children(); 
+	void print_tree1(int); 
 	~cl_base();
 };
 
 #endif // !CL_BASE_H
+
+/*
+ro
+ro o1
+ro o2
+o2 o4
+o2 o5
+o1 o7
+endtree
+*/

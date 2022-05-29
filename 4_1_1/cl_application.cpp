@@ -28,6 +28,6 @@ void cl_application::bild_tree_objects()
 int cl_application::exec_app()
 {
 	cout << root->children[1]->get_name();
-	root->children[1]->print_tree();
+	root->children[1]->print_tree1(1);
 	return 0;
 }
