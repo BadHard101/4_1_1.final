@@ -26,31 +26,26 @@ void cl_application::bild_tree_objects()
 		{
 		case 1:
 			child2 = new cl_base(name2, root->get_object_by_name(name1));
-			child1 = child2;
 			break;
 		case 2:
 			child2 = new cl_2(name2, root->get_object_by_name(name1));
-			child1 = child2;
 			break;
 		case 3:
 			child2 = new cl_3(name2, root->get_object_by_name(name1));
-			child1 = child2;
 			break;
 		case 4:
 			child2 = new cl_4(name2, root->get_object_by_name(name1));
-			child1 = child2;
 			break;
 		case 5:
 			child2 = new cl_5(name2, root->get_object_by_name(name1));
-			child1 = child2;
 			break;
 		case 6:
 			child2 = new cl_6(name2, root->get_object_by_name(name1));
-			child1 = child2;
 			break;
 		default:
 			break;
 		}
+		child1 = child2;
 	}
 }
 
