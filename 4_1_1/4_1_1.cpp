@@ -1,4 +1,6 @@
 ﻿#include "cl_application.h"
+#include "cl_2.h"
+
 int main()
 {
 	setlocale(LC_ALL, "ru");

@@ -14,11 +14,12 @@ void cl_application::bild_tree_objects()
 	cl_base* child1 = new cl_base(name1, nullptr);
 	while (true)
 	{
-		cin >> name1 >> name2;
-		if (name1 == name2)
+		cin >> name1;
+		if (name1 == "endtree")
 		{
 			return;
 		}
+		cin >> name2;
 		cl_base* child2 = new cl_base(name2, root -> get_object_by_name(name1));
 		child1 = child2;
 	}
