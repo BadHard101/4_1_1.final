@@ -46,20 +46,21 @@ string cl_base::get_name()
 	return object_name;
 }
 
-void cl_base::set_status(int status)
-{
-	if (parent->get_status()!=0)
-		this->status = status;
-	if (status == 0) {
-		this->status = 0;
-		for (int i = 0; i < this->children.size(); i++)
-			children[i]->set_status(0);
-	}
-}
-
 int cl_base::get_status()
 {
-	return status;
+	return this->status;
+}
+
+void cl_base::set_status(int status)
+{
+	if (parent->get_status() != 0)
+		this->status = status;
+	if (this->status == 0) {
+		this->status = 1;
+		for (int i = 1; i < this->children.size(); i++)
+			children[i]->set_status(0);
+		this->status = 0;
+	}
 }
 
 cl_base* cl_base::get_object_by_name(string name)

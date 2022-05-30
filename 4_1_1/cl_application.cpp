@@ -45,7 +45,6 @@ void cl_application::bild_tree_objects()
 		default:
 			break;
 		}
-		child1 = child2;
 	}
 }
 
