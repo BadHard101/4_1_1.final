@@ -93,6 +93,71 @@ cl_base* cl_base::get_child_by_name(string name)
 	return nullptr;
 }
 
+cl_base* cl_base::get_object_by_coord(string path)
+{
+	cl_base* cur = root->children[1];
+	string delimiter1 = "/", delimiter2 = "//", cur_path;
+	cur_path = path;
+	string token;
+	bool path_flag = true;
+
+	size_t pos = 0;
+
+	if (cur_path == "/")
+		return root->children[1];
+	else {
+		while ((pos = cur_path.find(delimiter1)) != string::npos) {
+			token = cur_path.substr(0, pos);
+
+			if (token != "")
+				cur = cur->get_child_by_name(token);
+
+			cur_path.erase(0, pos + delimiter1.length());
+		}
+		cur = cur->get_child_by_name(cur_path);
+	}
+
+	return cur;
+}
+
+//cl_base* cl_base::get_object_by_coord1(string path)
+//{
+//	cl_base* cur = current;
+//	string delimiter1 = "/", delimiter2 = "//", cur_path;
+//	cur_path = path;
+//	string token;
+//	bool path_flag = true;
+//
+//	size_t pos = 0;
+//
+//	if (cur_path == "/")
+//		return root->children[1];
+//
+//	else if (cur_path == ".")
+//		return cur;
+//
+//	else if (pos = cur_path.find(delimiter2)) {
+//		cur_path.erase(0, pos + delimiter2.length());
+//		cur = root->children[1]->get_object_by_name(cur_path);
+//	}
+//
+//	else {
+//		while ((pos = cur_path.find(delimiter1)) != string::npos) {
+//			token = cur_path.substr(0, pos);
+//
+//			if (token == "")
+//				cur = root->children[1];
+//			else
+//				cur = cur->get_child_by_name(token);
+//
+//			cur_path.erase(0, pos + delimiter1.length());
+//		}
+//		cur = cur->get_child_by_name(cur_path);
+//	}
+//
+//	return cur;
+//}
+
 void cl_base::print_tree()
 {
 	cout << root->children[1]->get_name();

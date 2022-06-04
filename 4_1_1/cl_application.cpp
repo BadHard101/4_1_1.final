@@ -56,9 +56,9 @@ string cl_application::bild_tree_objects_by_path()
 
 	cin >> path;
 	cl_base* root1 = new cl_base(path, nullptr);
+	current = root1;
 
 	cl_base* child;
-	cl_base* current = root1;
 
 	while (true)
 	{
@@ -66,34 +66,13 @@ string cl_application::bild_tree_objects_by_path()
 		cur_path = path;
 		if (path == "endtree")
 		{
-			return;
+			return "";
 		}
 
 		cin >> name2 >> num_class;
 		
-		size_t pos = 0;
-		string token;
-
-		if (cur_path == "/")
-		{
-			current = root1;
-		}
-		else {
-			current = root1;
-			while ((pos = cur_path.find(delimiter)) != string::npos) {
-				token = cur_path.substr(0, pos);
-
-				if (token != "") {
-					current = current->get_child_by_name(token);
-					if (current == nullptr) { return path; }
-				}
-
-				cur_path.erase(0, pos + delimiter.length());
-			}
-			current = current->get_child_by_name(cur_path);
-			if (current == nullptr) { return path; }
-
-		}
+		current = get_object_by_coord(path);
+		if (current == nullptr) { return path; }
 
 		switch (num_class)
 		{
@@ -119,12 +98,39 @@ string cl_application::bild_tree_objects_by_path()
 			break;
 		}
 
-		cout << "\nObject tree";
+		/*cout << "\nObject tree";
 		root->children[0]->print_tree_format();
-		cout << endl;
+		cout << endl;*/
 	}
 
 	return "";
+}
+
+void cl_application::object_search()
+{
+	cl_base* ob;
+	string command, path;
+	while (true)
+	{
+		cin >> command;
+		if (command == "END")
+		{
+			return;
+		}
+		cin >> path;
+
+		if (command == "FIND")
+		{
+			ob = get_object_by_coord(path);
+			if (ob == nullptr) {
+				cout << "Object name: " << ob->get_name();
+			}
+		}
+		else if (command == "SET")
+		{
+			current = get_object_by_coord(path);
+		}
+	}
 }
 
 void cl_application::bild_tree_readiness()
@@ -160,6 +166,8 @@ int cl_application::exec_app()
 void cl_application::build_tree()
 {
 	string coord = bild_tree_objects_by_path();
+	cout << "Object tree";
+	root->children[0]->print_tree_format();
 	if (coord != "")
-		cout << "The head object " << coord << " is not found";
+		cout << "\nThe head object " << coord << " is not found";
 }

@@ -18,6 +18,7 @@ public:
 	void bild_tree_objects_by_names();
 	string bild_tree_objects_by_path();
 	void bild_tree_readiness();
+	void object_search();
 	int exec_app();
 };
 
