@@ -80,6 +80,18 @@ cl_base* cl_base::get_object_by_name(string name)
 	return val;
 }
 
+cl_base* cl_base::get_child_by_name(string name)
+{
+	cl_base* val = nullptr;
+	for (int i = 0; i < this->children.size(); i++)
+	{
+		val = children[i];
+		if (children[i]->get_name() == name)
+			return children[i];
+	}
+	return nullptr;
+}
+
 void cl_base::print_tree()
 {
 	cout << root->children[1]->get_name();

@@ -28,6 +28,7 @@ public:
 	int get_status();
 
 	cl_base* get_object_by_name(string name);
+	cl_base* get_child_by_name(string name);
 	void print_tree(); 
 
 	void print_tree_format(int k = 0);

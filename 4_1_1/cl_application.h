@@ -14,7 +14,9 @@ class cl_application : public cl_base
 {
 public:
 	cl_application(cl_base* parent);
-	void bild_tree_objects();
+	void build_tree();
+	void bild_tree_objects_by_names();
+	string bild_tree_objects_by_path();
 	void bild_tree_readiness();
 	int exec_app();
 };
