@@ -106,10 +106,23 @@ string cl_application::bild_tree_objects_by_path()
 	return "";
 }
 
+bool cl_application::build_tree()
+{
+	string coord = bild_tree_objects_by_path();
+	if (coord != "") {
+		cout << "Object tree";
+		root->children[0]->print_tree_format();
+		cout << "\nThe head object " << coord << " is not found";
+		return false;
+	}
+	return true;
+}
+
 void cl_application::object_search()
 {
 	cl_base* ob;
 	string command, path;
+	current = root->children[1];
 	while (true)
 	{
 		cin >> command;
@@ -123,12 +136,20 @@ void cl_application::object_search()
 		{
 			ob = get_object_by_coord(path);
 			if (ob == nullptr) {
-				cout << "Object name: " << ob->get_name();
+				cout << path << "     " << "Object is not found\n";
 			}
+			else
+				cout << path << "     Object name: " << ob->get_name() << endl;
 		}
 		else if (command == "SET")
 		{
-			current = get_object_by_coord(path);
+			ob = get_object_by_coord(path);
+			if (ob == nullptr)
+				cout << "Object is not found: " << current->get_name() << " " << path << endl;
+			else {
+				current = ob;
+				cout << "Object is set: " << current->get_name() << endl;
+			}
 		}
 	}
 }
@@ -154,20 +175,14 @@ void cl_application::bild_tree_readiness()
 
 int cl_application::exec_app()
 {
-	cout << "Object tree";
-	root->children[0]->print_tree_format();
-	cout << endl;
-	cout << "The tree of objects and their readiness";
-	root->children[0]->print_tree_status();
+	if (build_tree())
+	{
+		cout << "Object tree";
+		root->children[0]->print_tree_format();
+		cout << endl;
 
+		object_search();
+		
+	}
 	return 0;
-}
-
-void cl_application::build_tree()
-{
-	string coord = bild_tree_objects_by_path();
-	cout << "Object tree";
-	root->children[0]->print_tree_format();
-	if (coord != "")
-		cout << "\nThe head object " << coord << " is not found";
 }
