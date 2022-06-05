@@ -145,8 +145,11 @@ cl_base* cl_base::get_object_by_coord(string path) //CL_3_2
 
 			if (token == "")
 				cur = root->children[1];
-			else
+			else {
 				cur = cur->get_child_by_name(token);
+				if (cur == nullptr)
+					return cur;
+			}
 
 			cur_path.erase(0, pos + delimiter1.length());
 		}
