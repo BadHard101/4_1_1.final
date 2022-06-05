@@ -158,7 +158,7 @@ cl_base* cl_base::get_object_by_coord(string path)
 	return cur;
 }
 
-void cl_base::print_tree()
+/*void cl_base::print_tree()
 {
 	cout << root->children[1]->get_name();
 	for (int i = 1; i < children.size(); i++)
@@ -181,6 +181,26 @@ void cl_base::print_tree()
 			children[i]->print_tree();
 		}
 	}
+}*/
+
+void cl_base::print_tree()
+{
+	for (int i = 0; i < children.size(); i++)
+	{
+		if (i == 0)
+			cout << endl;
+		cout << children[i]->get_name();
+		if (i + 1 < children.size())
+			cout << "  ";
+	}
+
+	for (int i = 1; i < children.size(); i++)
+	{
+		if (children[i]->children.size() > 1)
+		{
+			children[i]->print_tree();
+		}
+	}
 }
 
 void cl_base::print_tree_format(int k)
@@ -194,8 +214,6 @@ void cl_base::print_tree_format(int k)
 		if (children[i]->children.size() > 1) {
 			children[i]->print_tree_format(k + 1);
 		}
-		for (int j = 0; j < k; j++)
-			cout << "    ";
 	}
 }
 
@@ -216,8 +234,6 @@ void cl_base::print_tree_status(int k)
 		if (children[i]->children.size() > 1) {
 			children[i]->print_tree_status(k + 1);
 		}
-		for (int j = 0; j < k; j++)
-			cout << "    ";
 	}
 }
 

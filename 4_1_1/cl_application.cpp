@@ -52,7 +52,7 @@ string cl_application::bild_tree_objects_by_path()
 {
 
 	int num_class;
-	string delimiter = "/", path, cur_path, name2;
+	string delimiter = "/", path, cur_path, new_obj_name;
 
 	cin >> path;
 	cl_base* root1 = new cl_base(path, nullptr);
@@ -69,7 +69,7 @@ string cl_application::bild_tree_objects_by_path()
 			return "";
 		}
 
-		cin >> name2 >> num_class;
+		cin >> new_obj_name >> num_class;
 		
 		current = get_object_by_coord(path);
 		if (current == nullptr) { return path; }
@@ -77,22 +77,22 @@ string cl_application::bild_tree_objects_by_path()
 		switch (num_class)
 		{
 		case 1:
-			child = new cl_base(name2, current);
+			child = new cl_base(new_obj_name, current);
 			break;
 		case 2:
-			child = new cl_2(name2, current);
+			child = new cl_2(new_obj_name, current);
 			break;
 		case 3:
-			child = new cl_3(name2, current);
+			child = new cl_3(new_obj_name, current);
 			break;
 		case 4:
-			child = new cl_4(name2, current);
+			child = new cl_4(new_obj_name, current);
 			break;
 		case 5:
-			child = new cl_5(name2, current);
+			child = new cl_5(new_obj_name, current);
 			break;
 		case 6:
-			child = new cl_6(name2, current);
+			child = new cl_6(new_obj_name, current);
 			break;
 		default:
 			break;
@@ -131,24 +131,24 @@ void cl_application::object_search()
 			return;
 		}
 		cin >> path;
+		cout << endl;
 
 		if (command == "FIND")
 		{
 			ob = get_object_by_coord(path);
-			if (ob == nullptr) {
-				cout << path << "     " << "Object is not found\n";
-			}
+			if (ob == nullptr)
+				cout << path << "     " << "Object is not found";
 			else
-				cout << path << "     Object name: " << ob->get_name() << endl;
+				cout << path << "     Object name: " << ob->get_name();
 		}
 		else if (command == "SET")
 		{
 			ob = get_object_by_coord(path);
 			if (ob == nullptr)
-				cout << "Object is not found: " << current->get_name() << " " << path << endl;
+				cout << "Object is not found: " << current->get_name() << " " << path;
 			else {
 				current = ob;
-				cout << "Object is set: " << current->get_name() << endl;
+				cout << "Object is set: " << current->get_name();
 			}
 		}
 	}
@@ -179,7 +179,6 @@ int cl_application::exec_app()
 	{
 		cout << "Object tree";
 		root->children[0]->print_tree_format();
-		cout << endl;
 
 		object_search();
 		
