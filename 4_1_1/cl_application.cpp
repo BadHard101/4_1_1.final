@@ -52,7 +52,7 @@ string cl_application::bild_tree_objects_by_path()
 {
 
 	int num_class;
-	string delimiter = "/", path, cur_path, new_obj_name;
+	string path, new_obj_name;
 
 	cin >> path;
 	cl_base* root1 = new cl_base(path, nullptr);
@@ -63,11 +63,8 @@ string cl_application::bild_tree_objects_by_path()
 	while (true)
 	{
 		cin >> path;
-		cur_path = path;
 		if (path == "endtree")
-		{
 			return "";
-		}
 
 		cin >> new_obj_name >> num_class;
 		
@@ -106,7 +103,7 @@ string cl_application::bild_tree_objects_by_path()
 	return "";
 }
 
-bool cl_application::build_tree()
+bool cl_application::build_tree() //CL_3_2
 {
 	string coord = bild_tree_objects_by_path();
 	if (coord != "") {
@@ -118,7 +115,7 @@ bool cl_application::build_tree()
 	return true;
 }
 
-void cl_application::object_search()
+void cl_application::object_search() //CL_3_2
 {
 	cl_base* ob;
 	string command, path;
@@ -127,9 +124,8 @@ void cl_application::object_search()
 	{
 		cin >> command;
 		if (command == "END")
-		{
 			return;
-		}
+
 		cin >> path;
 		cout << endl;
 
@@ -137,7 +133,7 @@ void cl_application::object_search()
 		{
 			ob = get_object_by_coord(path);
 			if (ob == nullptr)
-				cout << path << "     " << "Object is not found";
+				cout << path << "     Object is not found";
 			else
 				cout << path << "     Object name: " << ob->get_name();
 		}
@@ -173,7 +169,7 @@ void cl_application::bild_tree_readiness()
 	}
 }
 
-int cl_application::exec_app()
+int cl_application::exec_app() //EDITED CL_3_2
 {
 	if (build_tree())
 	{

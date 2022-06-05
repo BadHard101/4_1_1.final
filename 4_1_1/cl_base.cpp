@@ -81,7 +81,7 @@ cl_base* cl_base::get_object_by_name(string name)
 	return val;
 }
 
-cl_base* cl_base::get_child_by_name(string name)
+cl_base* cl_base::get_child_by_name(string name) //CL_3_2
 {
 	cl_base* val = nullptr;
 	for (int i = 1; i < this->children.size(); i++)
@@ -120,13 +120,11 @@ cl_base* cl_base::get_child_by_name(string name)
 //	return cur;
 //}
 
-cl_base* cl_base::get_object_by_coord(string path)
+cl_base* cl_base::get_object_by_coord(string path) //CL_3_2
 {
 	cl_base* cur = current;
-	string delimiter1 = "/", delimiter2 = "//", cur_path;
-	cur_path = path;
-	string token;
-	bool path_flag = true;
+	string delimiter1 = "/", delimiter2 = "//";
+	string cur_path = path, token;
 
 	size_t pos = 0;
 
@@ -183,7 +181,7 @@ cl_base* cl_base::get_object_by_coord(string path)
 	}
 }*/
 
-void cl_base::print_tree()
+void cl_base::print_tree() 
 {
 	for (int i = 0; i < children.size(); i++)
 	{
@@ -203,7 +201,7 @@ void cl_base::print_tree()
 	}
 }
 
-void cl_base::print_tree_format(int k)
+void cl_base::print_tree_format(int k) 
 {
 	for (int i = 1; i < children.size(); i++)
 	{

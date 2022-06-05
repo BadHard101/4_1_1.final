@@ -15,7 +15,7 @@ class cl_base
 	int index = 0;
 	int status = 0;
 protected:
-	cl_base* current;
+	cl_base* current; //CL_3_2
 public:
 	static cl_base* root;
 	vector <cl_base*> children;
@@ -30,10 +30,10 @@ public:
 	int get_status();
 
 	cl_base* get_object_by_name(string name);
-	cl_base* get_child_by_name(string name);
+	cl_base* get_child_by_name(string name); //CL_3_2
 	void print_tree(); 
 
-	cl_base* get_object_by_coord(string path);
+	cl_base* get_object_by_coord(string path); //CL_3_2
 
 	void print_tree_format(int k = 0);
 	void print_tree_status(int k = 0);
