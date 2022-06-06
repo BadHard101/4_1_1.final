@@ -1,5 +1,4 @@
 ﻿#include "cl_application.h"
-#include "cl_2.h"
 
 int main()
 {

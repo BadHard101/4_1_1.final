@@ -4,6 +4,18 @@
 class cl_4 : public cl_base {
 
 public:
-	cl_4(string object_name, cl_base* parent) :cl_base(object_name, parent) {};
+	cl_4(string object_name, cl_base* parent) :cl_base(object_name, parent) 
+	{
+		this->cl_num = 4;
+	};
+	void signal(string& message)
+	{
+		cout << endl << "Signal from " << this->get_adress();
+		message += " (class: 4)";
+	}
+	void handler(string message)
+	{
+		cout << endl << "Signal to " << this->get_adress() << " Text: " << message;
+	}
 };
 #endif

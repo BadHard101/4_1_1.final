@@ -23,7 +23,6 @@ cl_base::cl_base(string object_name, cl_base* parent)
 		parent->children.push_back(this);
 	}
 	children.push_back(this);
-	index = (this->parent)->children.size() - 1;
 }
 
 void cl_base::set_name(string name)
@@ -159,6 +158,30 @@ cl_base* cl_base::get_object_by_coord(string path) //CL_3_2
 	return cur;
 }
 
+string cl_base::get_adress()
+{
+	cl_base* tmp = this;
+	bool flag = true;
+	if (this->get_parent() == nullptr) return "/";
+	string adress;
+	while (tmp->get_parent() != nullptr)
+	{
+
+		if (tmp->get_name() != root->children[1]->get_name())
+		{
+			adress.insert(0, tmp->get_name());
+			adress.insert(0, "/");
+			flag = false;
+		}
+		else if (flag)
+			adress.insert(0, "/");
+		
+
+		tmp = tmp->get_parent();
+	}
+	return adress;
+}
+
 /*void cl_base::print_tree()
 {
 	cout << root->children[1]->get_name();
@@ -236,6 +259,49 @@ void cl_base::print_tree_status(int k)
 			children[i]->print_tree_status(k + 1);
 		}
 	}
+}
+
+void cl_base::set_connect(TYPE_SIGNAL signal_method, cl_base* handler_ob, TYPE_HANDLER handler_method)
+{
+	signal_handler_connection* tmp = new signal_handler_connection(handler_ob, signal_method, handler_method);
+	for (int i = 0; i < connections.size(); i++)
+	{
+		if (connections[i]->handler_ob == tmp->handler_ob and connections[i]->handler_method == tmp->handler_method
+			and connections[i]->signal_method == tmp->signal_method) return;
+	}
+	connections.push_back(tmp);
+}
+
+void cl_base::emit(TYPE_SIGNAL signal_method, string message)
+{
+	if (this->status==0) return;
+	(this->*signal_method)(message);
+	for (int i = 0; i < connections.size(); i++)
+	{
+		if (connections[i]->signal_method == signal_method)
+		{
+			if (connections[i]->handler_ob->status == 0) continue;
+			(connections[i]->handler_ob->*(connections[i]->handler_method))(message);
+		}
+	}
+}
+
+void cl_base::delete_connect(TYPE_SIGNAL signal_method, cl_base* handler_ob, TYPE_HANDLER handler_method)
+{
+	for (int i = 0; i < connections.size(); i++)
+	{
+		if (connections[i]->handler_ob == handler_ob and connections[i]->handler_method == handler_method
+			and connections[i]->signal_method == signal_method)
+		{
+			connections.erase(connections.begin() + i);
+			return;
+		}
+	}
+}
+
+int cl_base::get_num()
+{
+	return this->cl_num;
 }
 
 cl_base::~cl_base()
