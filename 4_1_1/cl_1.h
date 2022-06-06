@@ -10,12 +10,12 @@ public:
 	};
 	void signal(string& message) ////
 	{
-		cout << endl << "Signal from " << this->get_adress();
+		cout << endl << "Signal from " << this->get_address();
 		message += "(class: 1)";
 	}
 	void handler(string message) ////
 	{
-		cout << endl << "Signal to " << this->get_adress() << " Text: " << message;
+		cout << endl << "Signal to " << this->get_address() << " Text: " << message;
 	}
 };
 #endif

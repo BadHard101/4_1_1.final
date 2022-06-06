@@ -1,5 +1,4 @@
 #include "cl_base.h"
-#include <string>
 
 cl_base* cl_base::root = new cl_base();
 
@@ -23,6 +22,7 @@ cl_base::cl_base(string object_name, cl_base* parent)
 		parent->children.push_back(this);
 	}
 	children.push_back(this);
+	index = (this->parent)->children.size() - 1;
 }
 
 void cl_base::set_name(string name)
@@ -72,7 +72,8 @@ cl_base* cl_base::get_object_by_name(string name)
 			return children[i];
 	}
 
-	for (int i = 1; i < children.size(); i++) {
+	for (int i = 1; i < children.size(); i++) 
+	{
 		val = (children[i]->get_object_by_name(name));
 		if ((children[i]->get_object_by_name(name))->get_name() == name)
 			return (children[i]->get_object_by_name(name));
@@ -158,30 +159,6 @@ cl_base* cl_base::get_object_by_coord(string path) //CL_3_2
 	return cur;
 }
 
-string cl_base::get_adress()
-{
-	cl_base* tmp = this;
-	bool flag = true;
-	if (this->get_parent() == nullptr) return "/";
-	string adress;
-	while (tmp->get_parent() != nullptr)
-	{
-
-		if (tmp->get_name() != root->children[1]->get_name())
-		{
-			adress.insert(0, tmp->get_name());
-			adress.insert(0, "/");
-			flag = false;
-		}
-		else if (flag)
-			adress.insert(0, "/");
-		
-
-		tmp = tmp->get_parent();
-	}
-	return adress;
-}
-
 /*void cl_base::print_tree()
 {
 	cout << root->children[1]->get_name();
@@ -232,7 +209,7 @@ void cl_base::print_tree_format(int k)
 	for (int i = 1; i < children.size(); i++)
 	{
 		cout << endl;
-		for (int i = 0; i < k; i++)
+		for (int j = 0; j < k; j++)
 			cout << "    ";
 		cout << children[i]->get_name();
 		if (children[i]->children.size() > 1) {
@@ -261,12 +238,35 @@ void cl_base::print_tree_status(int k)
 	}
 }
 
+string cl_base::get_address()
+{
+	cl_base* tmp = this;
+	bool flag = true;
+	if (this->get_parent() == nullptr) return "/";
+	string adress;
+	while (tmp->get_parent() != nullptr)
+	{
+		if (tmp->get_name() != root->children[1]->get_name())
+		{
+			adress.insert(0, tmp->get_name());
+			adress.insert(0, "/");
+			flag = false;
+		}
+		else if (flag)
+			adress.insert(0, "/");
+		
+		tmp = tmp->get_parent();
+	}
+	return adress;
+}
+
 void cl_base::set_connect(TYPE_SIGNAL signal_method, cl_base* handler_ob, TYPE_HANDLER handler_method)
 {
 	signal_handler_connection* tmp = new signal_handler_connection(handler_ob, signal_method, handler_method);
 	for (int i = 0; i < connections.size(); i++)
 	{
-		if (connections[i]->handler_ob == tmp->handler_ob and connections[i]->handler_method == tmp->handler_method
+		if (connections[i]->handler_ob == tmp->handler_ob 
+			and connections[i]->handler_method == tmp->handler_method
 			and connections[i]->signal_method == tmp->signal_method) return;
 	}
 	connections.push_back(tmp);
@@ -290,7 +290,8 @@ void cl_base::delete_connect(TYPE_SIGNAL signal_method, cl_base* handler_ob, TYP
 {
 	for (int i = 0; i < connections.size(); i++)
 	{
-		if (connections[i]->handler_ob == handler_ob and connections[i]->handler_method == handler_method
+		if (connections[i]->handler_ob == handler_ob 
+			and connections[i]->handler_method == handler_method
 			and connections[i]->signal_method == signal_method)
 		{
 			connections.erase(connections.begin() + i);

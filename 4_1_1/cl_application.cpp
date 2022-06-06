@@ -1,14 +1,7 @@
-#include <string>
 #include <iostream>
 #include <vector>
 #include "cl_base.h"
 #include "cl_application.h"
-#include "cl_1.h"
-#include "cl_3.h"
-#include "cl_2.h"
-#include "cl_4.h"
-#include "cl_5.h"
-#include "cl_6.h"
 #include <stdlib.h>
 
 cl_base::TYPE_SIGNAL cl_application::get_signal_method(int cl_num)
@@ -209,7 +202,7 @@ void cl_application::bild_tree_readiness()
 	}
 }
 
-void cl_application::s_connect(string path_ob1, string path_ob2)
+void cl_application::do_connect(string path_ob1, string path_ob2)
 {
 	cl_base* ob1;
 	cl_base* ob2;
@@ -217,13 +210,13 @@ void cl_application::s_connect(string path_ob1, string path_ob2)
 	ob1 = root->children[1]->get_object_by_coord(path_ob1);
 	if (ob1 == nullptr)
 	{
-		cout << "Object " << path_ob1 << " not found" << endl;
+		cout << "\nObject " << path_ob1 << " not found";
 		return;
 	}
 	ob2 = root->children[1]->get_object_by_coord(path_ob2);
 	if (ob2 == nullptr)
 	{
-		cout << "Handler object " << path_ob2 << " not found" << endl;
+		cout << "\nHandler object " << path_ob2 << " not found";
 		return;
 	}
 	ob1->set_connect(get_signal_method(ob1->get_num()), ob2, get_handler_method(ob2->get_num()));
@@ -237,26 +230,26 @@ void cl_application::do_emit(string path_ob)
 	ob = root->children[1]->get_object_by_coord(path_ob);
 	if (ob == nullptr)
 	{
-		cout << "Object " << path_ob << " not found" << endl;
+		cout << "\nObject " << path_ob << " not found";
 		return;
 	}
 	ob->emit(get_signal_method(ob->get_num()), message);
 }
 
-void cl_application::do_del_conect(string path_ob1, string path_ob2)
+void cl_application::do_del_connect(string path_ob1, string path_ob2)
 {
 	cl_base* ob1;
 	cl_base* ob2;
 	ob1 = root->children[1]->get_object_by_coord(path_ob1);
 	if (ob1 == nullptr)
 	{
-		cout << "Object " << path_ob1 << " not found" << endl;
+		cout << "\nObject " << path_ob1 << " not found";
 		return;
 	}
 	ob2 = root->children[1]->get_object_by_coord(path_ob2);
 	if (ob2 == nullptr)
 	{
-		cout << "Handler object " << path_ob2 << " not found" << endl;
+		cout << "\nHandler object " << path_ob2 << " not found";
 		return;
 	}
 	ob1->delete_connect(get_signal_method(ob1->get_num()), ob2, get_handler_method(ob2->get_num()));
@@ -270,7 +263,7 @@ void cl_application::do_condition(string path_ob)
 	ob = root->children[1]->get_object_by_coord(path_ob);
 	if (ob == nullptr)
 	{
-		cout << "Object " << path_ob << " not found" << endl;
+		cout << "\nObject " << path_ob << " not found";
 		return;
 	}
 	//ob->readiness(cond);
@@ -283,7 +276,7 @@ void cl_application::connector() {
 	while (first_ob != "end_of_connections")
 	{
 		cin >> second_ob;
-		s_connect(first_ob, second_ob);
+		do_connect(first_ob, second_ob);
 		cin >> first_ob;
 	}
 }
@@ -308,7 +301,7 @@ void cl_application::message_adapter() {
 		else if (command == "DELETE_CONNECT")
 		{
 			cin >> path_ob1 >> path_ob2;
-			do_del_conect(path_ob1, path_ob2);
+			do_del_connect(path_ob1, path_ob2);
 		}
 		else if (command == "SET_CONDITION")
 		{
@@ -318,7 +311,7 @@ void cl_application::message_adapter() {
 		else if (command == "SET_CONNECT")
 		{
 			cin >> path_ob1 >> path_ob2;
-			s_connect(path_ob1, path_ob2);
+			do_connect(path_ob1, path_ob2);
 		}
 	}
 }
